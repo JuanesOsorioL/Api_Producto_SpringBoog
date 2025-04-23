@@ -19,5 +19,5 @@ public class ProductoDTO {
     private String nombre;
 
     @PositiveOrZero(message = "El precio debe ser ≥ 0")
-    private double precio;
+    private Long precio;
 }
