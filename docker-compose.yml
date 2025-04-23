@@ -8,6 +8,8 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
+    networks:
+      - app-network
 
   springboot-api:
     build: .
@@ -18,6 +20,12 @@ services:
       - mongo
     environment:
       - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/producto_db
+    networks:
+      - app-network
 
 volumes:
   mongo-data:
+
+networks:
+  app-network:
+    external: true
