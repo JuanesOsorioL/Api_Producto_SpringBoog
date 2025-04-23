@@ -3,6 +3,7 @@ package com.example.Producto.controller;
 import com.example.Producto.dto.ProductoDTO;
 import com.example.Producto.service.ProductoService;
 import com.example.Producto.util.ApiResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class ProductoController {
     }
 
     @PostMapping
-    public Mono<ResponseEntity<ApiResponse<ProductoDTO>>> crear(@RequestBody ProductoDTO dto) {
+    public Mono<ResponseEntity<ApiResponse<ProductoDTO>>> crear(@Valid @RequestBody ProductoDTO dto) {
         return service.crear(dto)
                 .map(productoDTO -> ResponseEntity.status(HttpStatus.CREATED)
                         .body(new ApiResponse<>(HttpStatus.CREATED.value(), "Producto creado", productoDTO)))
@@ -48,7 +49,7 @@ public class ProductoController {
     }
 
     @PutMapping("/{id}")
-    public Mono<ResponseEntity<ApiResponse<ProductoDTO>>> actualizar(@RequestParam("id") String id, @RequestBody ProductoDTO dto) {
+    public Mono<ResponseEntity<ApiResponse<ProductoDTO>>> actualizar(@RequestParam("id") String id, @Valid @RequestBody ProductoDTO dto) {
         return service.actualizar(id, dto)
                 .map(productoDTO -> ResponseEntity.ok(new ApiResponse<>(HttpStatus.OK.value(), "Producto actualizado", productoDTO)))
                 .defaultIfEmpty(ResponseEntity.status(HttpStatus.NOT_FOUND)
