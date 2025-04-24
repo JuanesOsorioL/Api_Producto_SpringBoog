@@ -15,6 +15,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/productos")
 @RequiredArgsConstructor
+@CrossOrigin(origins = {
+        "http://localhost:8282/api/productos",
+        "http://localhost:8282"
+})
+/*
+"http://127.0.0.1:5501",
+        "http://localhost:5501",
+ */
+//@CrossOrigin(origins = "*")//http://localhost:8282/api/productos
 public class ProductoController {
 
     private final ProductoService service;
