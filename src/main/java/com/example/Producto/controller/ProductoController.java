@@ -15,15 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/productos")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {
-        "http://localhost:8282/api/productos",
-        "http://localhost:8282"
-})
-/*
-"http://127.0.0.1:5501",
-        "http://localhost:5501",
- */
-//@CrossOrigin(origins = "*")//http://localhost:8282/api/productos
 public class ProductoController {
 
     private final ProductoService service;
@@ -57,7 +48,7 @@ public class ProductoController {
                         .body(new ApiResponse<>(HttpStatus.NOT_FOUND.value(), "Producto no encontrado", null)));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping()
     public Mono<ResponseEntity<ApiResponse<ProductoDTO>>> actualizar(@RequestParam("id") String id, @Valid @RequestBody ProductoDTO dto) {
         return service.actualizar(id, dto)
                 .map(productoDTO -> ResponseEntity.ok(new ApiResponse<>(HttpStatus.OK.value(), "Producto actualizado", productoDTO)))
